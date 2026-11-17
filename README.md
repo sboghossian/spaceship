@@ -1,48 +1,33 @@
-# 🕹️ Spaceship IDE
+# Post Pilot
 
-Steer your ideas in realtime, space pilot style!
+A fork of [Spaceship IDE](https://github.com/chuanqisun/spaceship) by Chuanqi Sun, pointed at LinkedIn posts instead of short stories and restyled in a light cream, slate and gold palette.
 
-![Screencast](./extra/screencast.gif)
+All of the interaction design and engineering is Chuanqi Sun's: the focus monitor, attention lock, future vector steering and realtime re-generation. Read the original README for the ideas behind it, and watch the demos on [Instagram](https://www.instagram.com/reels/DfyQPhFtW-z/) and [YouTube](https://www.youtube.com/watch?v=3WmNLWUmcnY).
 
-## Demos
+## What this fork changes
 
-Watch on [Instagram](https://www.instagram.com/reels/DfyQPhFtW-z/) and [YouTube](https://www.youtube.com/watch?v=3WmNLWUmcnY). You can try the simulator at [https://chuanqisun.github.io/spaceship/](https://chuanqisun.github.io/spaceship/) with the option to go live with your API keys for Cerebras and Gemini. Keys stay in your browser local storage. Do it at your own risk.
+- **Skin**: the colour tokens in `index.html` (cream page, slate ink, gold for anything changing), the page title and the wording of the key dialog. Layout, type and motion are untouched.
+- **Content**: the prompts in `src/story/` and `src/text/live-*.ts` continue a LinkedIn post, not a story. They ask for first person, plain text, and no invented statistics, names or quotes.
+- **Knobs**: the steering axes are tone, angle, density, proof, audience, formality, candor, close and surprise.
+- **Simulator**: the placeholder word bank and axes are post-flavoured, so the change shows without API keys.
 
-## Conjecture
+## Status
 
-> In the near future, LLM and Decision Models will reach 60 FPS interactivity.
+- Simulator mode builds and runs.
+- Live mode (Cerebras and Gemini, your own keys, kept in browser local storage) has not been tested with the new prompts. Use it at your own risk.
 
-When that happens, what new interaction paradigms will unlock? This project demonstrates plausible and desirable interactions for that future.
+## Run
 
-1. **Focus monitor**: can we visualize what LLM is paying attention to, and use that to guide human's focus towards what's important?
+```bash
+npm install
+npm run dev
+```
 
-   ![focus monitor](./extra/clips/focus-monitor.gif)
+Then open the URL Vite prints, under `/spaceship/`.
 
-2. **Attention lock**: can we force LLM to pay more attention to specific phrases so as to bias its future behavior?
+## Credit and licence
 
-   ![attention lock](./extra/clips/attention-lock.gif)
-
-3. **Future Vector Steering**: can we decompose the task into eigenvectors, independently tune each, and re-compose them to influence the incoming text?
-
-   ![future steering](./extra/clips/future-steering.gif)
-
-4. **Realtime re-generation**: when text generation is cheap and fast, can we explore alternative futures by scrubbing?
-
-   ![realtime regeneration](./extra/clips/realtime-regeneration.gif)
-
-## Design process
-
-I used Claude Code for most of the implementation but stayed hands-on for the UI/UX. I iterate using interactive style swatch, a technique where I prompt AI to give me diverse options of designs, I provide feedback, and it iterates. You can see the design artifacts in the [extra page](https://chuanqisun.github.io/spaceship/extra/style-1.html).
-
-To achieve the realtime experience, I have to use agreesive speculative generation and manage cache invalidation based on user interactions. For example, when the main knob moves backward, I have to empty future texts and cancel ongoing requests. There are many considerations like this throughout the system and that took a lot of human judgement - claude didn't one shot them.
-
-## Theory
-
-I'm currently focusing on systems that help human shape ideas in realtime. This project is a small step towards my [upcoming thesis](https://code.chuanqisun.com/master-thesis/) at the MIT Media Lab, where I investigate how semantic and symoblic systems can be coupled to enhance human creativity, agency, and joy of craft.
-
-## Citation
-
-If you build on this work, please cite it as:
+MIT, copyright Chuanqi Sun; see [LICENSE](./LICENSE). If you build on the work, cite the original:
 
 ```bibtex
 @misc{sun2026spaceship,

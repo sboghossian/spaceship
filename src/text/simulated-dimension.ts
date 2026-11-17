@@ -5,12 +5,12 @@ const MENU_SIZE = 5
 const LATENCY_MS = 150
 
 const DIMENSIONS: Dimension[] = [
-  { name: "tension", kind: "scale", low: "calm", high: "tense" },
-  { name: "turn", kind: "choice", options: ["resolve", "suspend", "twist"] },
-  { name: "pace", kind: "scale", low: "lingering", high: "brisk" },
-  { name: "voice", kind: "choice", options: ["action", "dialogue", "thought"] },
-  { name: "mood", kind: "scale", low: "dark", high: "light" },
-  { name: "distance", kind: "scale", low: "intimate", high: "detached" },
+  { name: "tone", kind: "scale", low: "humble", high: "bold" },
+  { name: "angle", kind: "choice", options: ["lesson", "story", "contrarian"] },
+  { name: "density", kind: "scale", low: "punchy", high: "detailed" },
+  { name: "audience", kind: "choice", options: ["founders", "operators", "engineers"] },
+  { name: "proof", kind: "scale", low: "opinion", high: "example" },
+  { name: "formality", kind: "scale", low: "casual", high: "polished" },
 ]
 
 export const simulatedDimension: DimensionSource = async function* ({ taken }, signal) {

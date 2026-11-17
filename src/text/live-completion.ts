@@ -5,27 +5,28 @@ import { strengthLevelOf, valueOf, type Control } from "./dimension.ts"
 import type { Steering, TextSource } from "./text-stream.ts"
 import { countWords } from "./words.ts"
 
-const STEERED_SYSTEM_PROMPT = `Continue the story. The user message may list KEY PHRASES and CONTROLS, then the story so far, which may stop mid-sentence.
+const STEERED_SYSTEM_PROMPT = `Continue the LinkedIn post. The user message may list KEY PHRASES and CONTROLS, then the post so far, which may stop mid-sentence.
 
-- Output only the words that come next. Your first word directly follows the story's last word: if the story stops mid-sentence, finish that sentence first. Never repeat or restart any of the story so far, not even its last word: after "…the door was still" write "locked, and…", never "still locked" or "The door was still locked".
-- Key phrases lead what happens next: build the continuation on them, most of all on the [bracketed] words.
-- Controls set how the next passage reads. Each is a dimension given only by its name and its poles or options, so infer from the labels what to change in the events, focus or style. A scale gives a position between two poles: at an extreme, exaggerate that pole so a reader notices it within two sentences; midway, balance both. A choice names the option to follow. Each control ends with a strength in parentheses that sets how much it shapes the passage. Strong: it dominates every sentence. Moderate: a clear influence throughout. Slight: show it in one or two touches only, such as a single sentence or image, and otherwise write the passage as the story's own events, the key phrases and the stronger controls would have it; a slight control must never set the overall character of the passage. Strength is separate from the value and replaces the exaggeration rule: exaggerate a pole only at strong. Obey every control from the first sentence to the last, but never write a label itself as words of the story.
-- With both, key phrases are the content and controls are the manner: what happens next grows out of the key phrases, whose bracketed words appear in the first two sentences, written in the controlled manner.
-- Plain text only. No title, markdown or commentary.
+- Output only the words that come next. Your first word directly follows the post's last word: if the post stops mid-sentence, finish that sentence first. Never repeat or restart any of the post so far, not even its last word: after "…the demo was still" write "broken, and…", never "still broken" or "The demo was still broken".
+- Key phrases lead what the post says next: build the continuation on them, most of all on the [bracketed] words.
+- Controls set how the next passage reads. Each is a dimension given only by its name and its poles or options, so infer from the labels what to change in the argument, audience or style. A scale gives a position between two poles: at an extreme, exaggerate that pole so a reader notices it within two sentences; midway, balance both. A choice names the option to follow. Each control ends with a strength in parentheses that sets how much it shapes the passage. Strong: it dominates every sentence. Moderate: a clear influence throughout. Slight: show it in one or two touches only, such as a single sentence or image, and otherwise write the passage as the post's own argument, the key phrases and the stronger controls would have it; a slight control must never set the overall character of the passage. Strength is separate from the value and replaces the exaggeration rule: exaggerate a pole only at strong. Obey every control from the first sentence to the last, but never write a label itself as words of the post.
+- With both, key phrases are the content and controls are the manner: what the post says next grows out of the key phrases, whose bracketed words appear in the first two sentences, written in the controlled manner.
+- First person, plain spoken, one idea per sentence. Plain text only. No title, hashtags, emojis, markdown or commentary.
+- Do not invent statistics, company names, customers or quotes.
 - Write 120 to 300 words, never more than ${STORY_MAX_WORDS}. End on a complete sentence.
 
 EXAMPLE
 User:
 KEY PHRASES
-not the one on her [phone]
+nobody opened it [twice]
 
 CONTROLS
-tension: very strained
+tone: very bold
 
-STORY SO FAR
-Mara had locked the kitchen an hour ago. Now the alarm went off, but it was not the one on her phone. She lay still and
+POST SO FAR
+We spent a month building the dashboard. The demo worked, but nobody opened it twice. I
 Assistant:
-clawed for the phone anyway. Dark screen. The ringing did not stop.`
+stopped defending it. Twice is the only number that counts. If people do not come back, you built a demo, not a product.`
 
 const MAX_ECHO_WORDS = 6
 
@@ -85,7 +86,7 @@ function steeredUserMessage(prefix: string, { leads, controls }: Steering) {
   const blocks = [
     ["KEY PHRASES", leads.map(({ before, keyword, after }) => `${before}[${keyword}]${after}`)],
     ["CONTROLS", controls.map(controlLine)],
-    ["STORY SO FAR", [prefix]],
+    ["POST SO FAR", [prefix]],
   ] as const
   return blocks
     .filter(([, lines]) => lines.length)

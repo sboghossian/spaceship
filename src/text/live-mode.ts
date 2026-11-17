@@ -5,14 +5,14 @@ import { KEY_STORAGE as GEMINI_KEY_STORAGE } from "../llm/decisions.ts"
 const KEY_FIELDS = { cerebras: CEREBRAS_KEY_STORAGE, gemini: GEMINI_KEY_STORAGE }
 
 /**
- * Sim plays simulated sources; flight calls the models. The sources are chosen when the page loads, so switching reloads it in the other mode.
+ * Sim plays simulated sources; live calls the models. The sources are chosen when the page loads, so switching reloads it in the other mode.
  * Launching always asks for both API keys first, prefilled with the ones kept from last time; the dialog's submit button returns "live".
  */
 export function bindModeToggle(toggle: HTMLButtonElement, dialog: HTMLDialogElement, isLive: boolean) {
   const form = dialog.querySelector("form")!
   const inputOf = (name: string) => form.elements.namedItem(name) as HTMLInputElement
   toggle.setAttribute("aria-pressed", `${isLive}`)
-  toggle.querySelector("b")!.textContent = isLive ? "flight" : "sim"
+  toggle.querySelector("b")!.textContent = isLive ? "live" : "sim"
 
   toggle.addEventListener("click", () => {
     if (isLive) return reloadAs(false)

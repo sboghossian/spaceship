@@ -7,12 +7,12 @@ const WORDS_PER_CHUNK = 8
 const WORDS_PER_COMPLETION = 400
 /** Share of words drawn from the steering instead of the dictionary, so its effect is visible. */
 const STEERED_SHARE = 0.25
-/** Share of words that end a sentence, so sentences run about as long as a story's. */
+/** Share of words that end a sentence, so sentences run about as long as a post's. */
 const SENTENCE_END_SHARE = 1 / 15
 const CHUNK_INTERVAL_MS = (WORDS_PER_CHUNK / WORDS_PER_SECOND) * 1000
 
 const DICTIONARY =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.".split(
+  "we shipped the first version in a week, then spent a month learning why nobody came back. the lesson was simple: talk to people before you write code, keep the scope small, and measure what they do twice. most of the work is boring, and that is where the product gets built. start with one user, one problem and one honest number.".split(
     " ",
   )
 

@@ -8,7 +8,7 @@ const QUESTIONS: Record<Focus["kind"], { instructions: string; levels: string[] 
     instructions: "connect to and influence the NEXT SENTENCE",
     levels: [
       "No connection",
-      "Weak: shares a detail or the setting",
+      "Weak: shares a detail or the topic",
       "Moderate: the next sentence builds on it",
       "Strong: the next sentence directly follows from it",
     ],
@@ -17,7 +17,7 @@ const QUESTIONS: Record<Focus["kind"], { instructions: string; levels: string[] 
     instructions: "connect to the KEY PHRASE: what it names, what causes it or what follows from it",
     levels: [
       "No connection",
-      "Weak: shares a detail or the setting",
+      "Weak: shares a detail or the topic",
       "Moderate: involves what the key phrase names",
       "Strong: directly about, caused by or causing the key phrase",
     ],
@@ -29,7 +29,7 @@ export const liveInfluence: InfluenceSource = async function* (sentences, focus,
   if (!apiKey) throw new Error("save a Gemini API key on the decisions page first")
 
   const { instructions, levels } = QUESTIONS[focus.kind]
-  const input = `STORY SENTENCES\n${sentences.map((sentence, i) => `[${i + 1}] ${sentence}`).join("\n")}\n\n${focus.kind.toUpperCase()}\n${focus.text}`
+  const input = `POST SENTENCES\n${sentences.map((sentence, i) => `[${i + 1}] ${sentence}`).join("\n")}\n\n${focus.kind.toUpperCase()}\n${focus.text}`
   const questions = Object.fromEntries(
     sentences.map((_, i): [string, Question] => [
       keyOf(i),

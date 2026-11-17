@@ -4,7 +4,7 @@ import type { RelevanceSource } from "./keyword-relevance.ts"
 const MODEL = "gemini-decision-1"
 const LEVELS = [
   "Not relevant",
-  "Weak: shares the setting or a passing detail",
+  "Weak: shares the topic or a passing detail",
   "Moderate: bears on what the tip is about",
   "Strong: the tip is about it, or turns on it",
 ]
@@ -14,7 +14,7 @@ export const liveRelevance: RelevanceSource = async function* ({ story, tip, lea
   if (!apiKey) throw new Error("save a Gemini API key on the decisions page first")
 
   const input = [
-    ...(story ? [`STORY SO FAR\n${story}`] : []),
+    ...(story ? [`POST SO FAR\n${story}`] : []),
     `TIP (the sentence being written now)\n${tip}`,
     `KEYWORDS\n${leads.map(({ before, keyword, after }, i) => `[${i + 1}] ${keyword} (in "${before}${keyword}${after}")`).join("\n")}`,
   ].join("\n\n")

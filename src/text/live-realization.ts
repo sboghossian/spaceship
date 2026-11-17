@@ -8,7 +8,7 @@ export const liveRealization: RealizationSource = async function* ({ context, se
   if (!apiKey) throw new Error("save a Gemini API key on the decisions page first")
 
   const input = [
-    ...(context ? [`STORY SO FAR\n${context}`] : []),
+    ...(context ? [`POST SO FAR\n${context}`] : []),
     `CANDIDATE SENTENCES\n${sentences.map((sentence, i) => `[${i + 1}] ${sentence}`).join("\n")}`,
     `CONTROL\n${control}`,
   ].join("\n\n")
